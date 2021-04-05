@@ -1,0 +1,87 @@
+demo_train:
+  data_folder: how_data
+  exp_folder: how_experiments
+  gpu_id: 0
+model:
+  architecture: resnet18
+  dim_reduction:
+    dim: 128
+  pretrained: true
+  runtime:
+    features_num: 1000
+    image_size: 1024
+    mean_std:
+    - - 0.485
+      - 0.456
+      - 0.406
+    - - 0.229
+      - 0.224
+      - 0.225
+    scales:
+    - 2.0
+    - 1.414
+    - 1.0
+    - 0.707
+    - 0.5
+    - 0.353
+    - 0.25
+    training_scales:
+    - 1
+  skip_layer: 0
+  smoothing:
+    kernel_size: 3
+training:
+  dataset:
+    imsize: 1024
+    mode: train
+    name: retrieval-SfM-120k
+    nnum: 5
+    poolsize: 20000
+    qsize: 2000
+  epochs: 20
+  initialize_dim_reduction:
+    features_num: null
+    images: 5000
+  loader:
+    batch_size: 5
+  loss:
+    margin: 0.8
+  lr_scheduler:
+    gamma: 0.99
+  optimizer:
+    lr: 5.0e-06
+    weight_decay: 0.0001
+validation:
+  global_descriptor:
+    datasets: []
+    frequency: null
+  local_descriptor:
+    asmk:
+      build_ivf:
+        aggregate: {}
+        ivf:
+          use_idf: false
+        kernel:
+          binary: true
+        quantize:
+          multiple_assignment: 1
+      index:
+        gpu_id: 0
+      query_ivf:
+        aggregate: {}
+        quantize:
+          multiple_assignment: 5
+        search: {}
+        similarity:
+          alpha: 3.0
+          similarity_threshold: 0.0
+      train_codebook:
+        codebook:
+          size: 65536
+    codebook_training:
+      images: 20000
+      scales:
+      - 1
+    datasets:
+    - val_eccv20
+    frequency: 5

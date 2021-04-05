@@ -1,0 +1,42 @@
+2021-02-16 02:30:23,886 HOW INFO: Downloading file 'retrieval-SfM-120k-val-eccv2020.pkl'
+2021-02-16 02:35:38,000 HOW INFO: Downloading file 'how_r18.pth'
+2021-02-16 02:35:51,877 HOW INFO: Starting asmk evaluation
+2021-02-16 02:45:05,344 HOW INFO: Codebook trained in 275.0s
+2021-02-16 02:45:06,031 HOW INFO: Evaluating val_eccv20
+2021-02-16 03:03:12,866 HOW INFO: Indexed images in 413.05s
+2021-02-16 03:03:13,353 HOW DEBUG: IVF stats: {'vectors_per_image': 264.2702920119057, 'mean_entries_per_vw': 50.1273193359375, 'min_entries_per_vw': 0, 'max_entries_per_vw': 823, 'std_of_entries_per_vw': 68.02042953210461, 'imbalance_factor_of_vw': 2.841322157628578}
+2021-02-16 03:04:25,410 HOW DEBUG: Average query time (quant+aggr+search) is 0.050s
+2021-02-16 03:04:25,960 HOW INFO: Evaluated val_eccv20: mAP 84.95, mP@k [91.93 85.79 81.44]
+2021-02-16 03:04:26,047 HOW INFO: Evaluating roxford5k
+2021-02-16 03:11:21,682 HOW INFO: Indexed images in 90.48s
+2021-02-16 03:11:21,718 HOW DEBUG: IVF stats: {'vectors_per_image': 283.6366913679151, 'mean_entries_per_vw': 21.609466552734375, 'min_entries_per_vw': 0, 'max_entries_per_vw': 567, 'std_of_entries_per_vw': 33.41063161138216, 'imbalance_factor_of_vw': 3.3904588909176563}
+2021-02-16 03:11:27,981 HOW DEBUG: Average query time (quant+aggr+search) is 0.043s
+2021-02-16 03:11:28,136 HOW INFO: Evaluated roxford5k: mAP E: 91.14, M: 74.74, H: 51.26
+2021-02-16 03:11:28,136 HOW INFO: Evaluated roxford5k: mP@k(1, 5, 10) E: [100.    96.13  93.11], M: [100.    96.86  93.71], H: [92.86 80.57 70.  ]
+2021-02-16 03:11:28,205 HOW INFO: Evaluating rparis6k
+2021-02-16 03:19:19,829 HOW INFO: Indexed images in 130.28s
+2021-02-16 03:19:20,054 HOW DEBUG: IVF stats: {'vectors_per_image': 264.2973742486555, 'mean_entries_per_vw': 25.4957275390625, 'min_entries_per_vw': 0, 'max_entries_per_vw': 667, 'std_of_entries_per_vw': 38.97159203071113, 'imbalance_factor_of_vw': 3.336476817471673}
+2021-02-16 03:19:26,596 HOW DEBUG: Average query time (quant+aggr+search) is 0.043s
+2021-02-16 03:19:27,002 HOW INFO: Evaluated rparis6k: mAP E: 93.32, M: 79.91, H: 59.02
+2021-02-16 03:19:27,003 HOW INFO: Evaluated rparis6k: mP@k(1, 5, 10) E: [100.    96.86  96.14], M: [100.    99.71  99.57], H: [97.14 95.14 93.57]
+2021-02-16 03:19:27,003 HOW INFO: Finished asmk evaluation in 43 min
+2021-02-16 04:00:59,819 HOW INFO: Starting asmk evaluation
+2021-02-16 04:10:21,564 HOW INFO: Codebook trained in 275.4s
+2021-02-16 04:10:22,111 HOW INFO: Evaluating val_eccv20
+2021-02-16 04:26:13,687 HOW INFO: Indexed images in 413.18s
+2021-02-16 04:26:13,687 HOW DEBUG: IVF stats: {'vectors_per_image': 264.2702920119057, 'mean_entries_per_vw': 50.1273193359375, 'min_entries_per_vw': 0, 'max_entries_per_vw': 823, 'std_of_entries_per_vw': 68.02042953210461, 'imbalance_factor_of_vw': 2.841322157628578}
+2021-02-16 04:27:20,836 HOW DEBUG: Average query time (quant+aggr+search) is 0.050s
+2021-02-16 04:27:21,345 HOW INFO: Evaluated val_eccv20: mAP 84.95, mP@k [91.93 85.79 81.44]
+2021-02-16 04:27:21,379 HOW INFO: Evaluating roxford5k
+2021-02-16 04:33:02,548 HOW INFO: Indexed images in 90.86s
+2021-02-16 04:33:02,548 HOW DEBUG: IVF stats: {'vectors_per_image': 283.6366913679151, 'mean_entries_per_vw': 21.609466552734375, 'min_entries_per_vw': 0, 'max_entries_per_vw': 567, 'std_of_entries_per_vw': 33.41063161138216, 'imbalance_factor_of_vw': 3.3904588909176563}
+2021-02-16 04:33:08,357 HOW DEBUG: Average query time (quant+aggr+search) is 0.043s
+2021-02-16 04:33:08,504 HOW INFO: Evaluated roxford5k: mAP E: 91.14, M: 74.74, H: 51.26
+2021-02-16 04:33:08,505 HOW INFO: Evaluated roxford5k: mP@k(1, 5, 10) E: [100.    96.13  93.11], M: [100.    96.86  93.71], H: [92.86 80.57 70.  ]
+2021-02-16 04:33:08,542 HOW INFO: Evaluating rparis6k
+2021-02-16 04:40:31,378 HOW INFO: Indexed images in 130.14s
+2021-02-16 04:40:31,379 HOW DEBUG: IVF stats: {'vectors_per_image': 264.2973742486555, 'mean_entries_per_vw': 25.4957275390625, 'min_entries_per_vw': 0, 'max_entries_per_vw': 667, 'std_of_entries_per_vw': 38.97159203071113, 'imbalance_factor_of_vw': 3.336476817471673}
+2021-02-16 04:40:37,173 HOW DEBUG: Average query time (quant+aggr+search) is 0.043s
+2021-02-16 04:40:37,564 HOW INFO: Evaluated rparis6k: mAP E: 93.32, M: 79.91, H: 59.02
+2021-02-16 04:40:37,565 HOW INFO: Evaluated rparis6k: mP@k(1, 5, 10) E: [100.    96.86  96.14], M: [100.    99.71  99.57], H: [97.14 95.14 93.57]
+2021-02-16 04:40:37,565 HOW INFO: Finished asmk evaluation in 39 min
