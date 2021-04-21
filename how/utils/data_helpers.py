@@ -37,6 +37,9 @@ def load_dataset(dataset, data_root=''):
         idic=read_xml.idic
         qdic=read_xml.qdic
         dic_list=read_xml.dic_list
+        global ig
+        global qg
+        global ilabel
         images = [idic[i]['image'] for i in range(len(idic))]
         qimages = [qdic[i]['image'] for i in range(len(qdic))]
         bbxs = [dic_list[i]['bbx'] for i in range(len(dic_list))]
@@ -55,6 +58,7 @@ def load_dataset(dataset, data_root=''):
             bbxs = None
         gnd = cfg['gnd']
         '''
+        #breakpoint()
     return images, qimages, bbxs, ig,qg,ilabel
 
 

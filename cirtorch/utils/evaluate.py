@@ -19,21 +19,21 @@ def compute_ap(ranks, nres):
 
     # accumulate trapezoids in PR-plot
     ap = 0
+    if nres != 0:
+        recall_step = 1. / nres
+        for j in np.arange(nimgranks):
+            rank = ranks[j]
 
-    recall_step = 1. / nres
+            if rank == 0:
+                precision_0 = 1.
+            else:
+                precision_0 = float(j) / rank
 
-    for j in np.arange(nimgranks):
-        rank = ranks[j]
+            precision_1 = float(j + 1) / (rank + 1)
 
-        if rank == 0:
-            precision_0 = 1.
-        else:
-            precision_0 = float(j) / rank
-
-        precision_1 = float(j + 1) / (rank + 1)
-
-        ap += (precision_0 + precision_1) * recall_step / 2.
-
+            ap += (precision_0 + precision_1) * recall_step / 2.
+    else:
+        ap = 0
     return ap
 
 def compute_map(ranks, qg,ig, kappas=[]):
@@ -53,7 +53,7 @@ def compute_map(ranks, qg,ig, kappas=[]):
          2) The junk results (e.g., the query itself) should be declared in the gnd stuct array
          3) If there are no positive images for some query, that query is excluded from the evaluation
     """
-
+    nmap = 0.
     map = 0.
     nq = len(qg) # number of queries
     aps = np.zeros(nq)
@@ -61,7 +61,8 @@ def compute_map(ranks, qg,ig, kappas=[]):
     prs = np.zeros((nq, len(kappas)))
     nempty = 0
     #i回目の検索
-    for i in np.arange(6):
+    #for i in np.arange(13):
+    for i in range(nq):
         #qgnd = np.array(gnd[i]['ok'])
         qgnd = np.array(qg[i]['label'])
         print(qgnd)
@@ -99,8 +100,10 @@ def compute_map(ranks, qg,ig, kappas=[]):
         '''
         # compute ap
         ap = compute_ap(pos, len(pos))
-        map = map + ap
+        nmap = nmap + ap
+        map=nmap/(i+1)
         aps[i] = ap
+        #breakpoint()
         '''
         # compute precision @ k
         pos += 1 # get it to 1-based
@@ -122,34 +125,4 @@ def compute_map_and_print(dataset, ranks, qg,ig, kappas=[1, 5, 10]):
         #map, aps, _, _ = compute_map(ranks, qg,ig)
         map, aps = compute_map(ranks, qg,ig)
         print('>> {}: mAP {:.2f}'.format(dataset, np.around(map*100, decimals=2)))
-'''
-    # new evaluation protocol
-    elif dataset.startswith('roxford5k') or dataset.startswith('rparis6k'):
-        
-        gnd_t = []
-        for i in range(len(gnd)):
-            g = {}
-            g['ok'] = np.concatenate([gnd[i]['easy']])
-            g['junk'] = np.concatenate([gnd[i]['junk'], gnd[i]['hard']])
-            gnd_t.append(g)
-        mapE, apsE, mprE, prsE = compute_map(ranks, gnd_t, kappas)
-
-        gnd_t = []
-        for i in range(len(gnd)):
-            g = {}
-            g['ok'] = np.concatenate([gnd[i]['easy'], gnd[i]['hard']])
-            g['junk'] = np.concatenate([gnd[i]['junk']])
-            gnd_t.append(g)
-        mapM, apsM, mprM, prsM = compute_map(ranks, gnd_t, kappas)
-
-        gnd_t = []
-        for i in range(len(gnd)):
-            g = {}
-            g['ok'] = np.concatenate([gnd[i]['hard']])
-            g['junk'] = np.concatenate([gnd[i]['junk'], gnd[i]['easy']])
-            gnd_t.append(g)
-        mapH, apsH, mprH, prsH = compute_map(ranks, gnd_t, kappas)
-
-        print('>> {}: mAP E: {}, M: {}, H: {}'.format(dataset, np.around(mapE*100, decimals=2), np.around(mapM*100, decimals=2), np.around(mapH*100, decimals=2)))
-        print('>> {}: mP@k{} E: {}, M: {}, H: {}'.format(dataset, kappas, np.around(mprE*100, decimals=2), np.around(mprM*100, decimals=2), np.around(mprH*100, decimals=2)))
-'''
+        print('>> {}: aps {}'.format(dataset,aps))

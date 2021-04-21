@@ -12,7 +12,7 @@ from cirtorch.datasets.genericdataset import ImagesFromList
 
 from asmk.asmk.asmk_method import ASMKMethod
 from how.networks import how_net
-from how.utils import score_helpers, data_helpers, logging
+from how.utils import score_helpers,score_helpers1, data_helpers, logging
 
 warnings.filterwarnings("ignore", r"^Possibly corrupt EXIF data", category=UserWarning)
 
@@ -76,7 +76,7 @@ def eval_global(net, inference, globals, *, datasets):
         label_df=pd.DataFrame()
         ranks=ranks[0:10,:]
         #for i in range(len(ranks[0])):
-        for i in range(6):
+        for i in range(len(ranks[0])):
             for j in range(len(ranks)):
                 k=ranks[j,i]
                 label_df.loc[j,i]=ilabel[k]
@@ -106,7 +106,7 @@ def eval_asmk(net, inference, globals, *, datasets, codebook_training, asmk):
 
     scores = {}
     for dataset in datasets:
-        images, qimages, bbxs, qg,ig = data_helpers.load_dataset(dataset, data_root=globals['root_path'])
+        images, qimages, bbxs, qg,ig,ilabel= data_helpers.load_dataset(dataset, data_root=globals['root_path'])
         data_opts = {"imsize": inference['image_size'], "transform": globals['transform']}
         infer_opts = {"scales": inference['scales'], "features_num": inference['features_num']}
         logger.info(f"Evaluating {dataset}")
@@ -123,7 +123,15 @@ def eval_asmk(net, inference, globals, *, datasets, codebook_training, asmk):
         qdes = how_net.extract_vectors_local(net, qdset, globals["device"], **infer_opts)
         metadata, _images, ranks, _scores = asmk_dataset.query_ivf(qdes[0], qdes[1])
         logger.debug(f"Average query time (quant+aggr+search) is {metadata['query_avg_time']:.3f}s")
-        scores[dataset] = score_helpers.compute_map_and_log(dataset, ranks.T, qg,ig, logger=logger)
+        
+        label_df=pd.DataFrame()
+        ranks=ranks[:,0:10]
+        #for i in range(len(ranks[0])):
+        for i in range(len(ranks)):
+            for j in range(len(ranks[0])):
+                k=ranks[i,j]
+                label_df.loc[i,j]=ilabel[k] 
+        scores[dataset] = score_helpers1.compute_map_and_log(dataset, label_df.T, qg,ig, logger=logger)
 
     logger.info(f"Finished asmk evaluation in {int(time.time()-time0) // 60} min")
     return scores

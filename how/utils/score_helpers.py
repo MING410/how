@@ -57,4 +57,5 @@ def compute_map_and_log(dataset, ranks, qg,ig, kappas=(1, 5, 10), logger=None):
     if logger:
         fmap = lambda x: np.around(x*100, decimals=2)
         logger.info(f"Evaluated {dataset}: mAP {fmap(map_score)}")
-    return {"map": map_score,  "ap": ap_scores}
+        logger.info(f"Evaluated {dataset}: aps {fmap(ap_scores)}")
+    return {"map": map_score,  "aps": ap_scores}

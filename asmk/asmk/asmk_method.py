@@ -141,6 +141,7 @@ class ASMKMethod:
         images, ranks, scores = self.accumulate_scores(self.codebook, self.kernel, \
                                             self.inverted_file, qvecs, qimids, step_params)
         metadata = {"query_avg_time": (time.time()-time0)/len(ranks)}
+        #breakpoint()
         return metadata, images, ranks, scores
 
 
