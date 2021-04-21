@@ -40,9 +40,10 @@ def load_dataset(dataset, data_root=''):
         images = [idic[i]['image'] for i in range(len(idic))]
         qimages = [qdic[i]['image'] for i in range(len(qdic))]
         bbxs = [dic_list[i]['bbx'] for i in range(len(dic_list))]
-        gnd = [dic_list[i] for i in range(len(dic_list))]
+        #gnd = [dic_list[i] for i in range(len(dic_list))]
         ig = [idic[i] for i in range(len(idic))]
-        qg = [qdic[i] for i in range(len(qdic))] 
+        qg = [qdic[i] for i in range(len(qdic))]
+        ilabel=[idic[i]['label'] for i in range(len(idic))] 
         '''
     else:
         cfg = configdataset(dataset, os.path.join(data_root, 'test'))
@@ -54,7 +55,7 @@ def load_dataset(dataset, data_root=''):
             bbxs = None
         gnd = cfg['gnd']
         '''
-    return images, qimages, bbxs, ig,qg
+    return images, qimages, bbxs, ig,qg,ilabel
 
 
 class AverageMeter:

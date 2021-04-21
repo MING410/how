@@ -61,7 +61,7 @@ def compute_map(ranks, qg,ig, kappas=[]):
     prs = np.zeros((nq, len(kappas)))
     nempty = 0
     #i回目の検索
-    for i in np.arange(nq):
+    for i in np.arange(6):
         #qgnd = np.array(gnd[i]['ok'])
         qgnd = np.array(qg[i]['label'])
         print(qgnd)
@@ -78,8 +78,10 @@ def compute_map(ranks, qg,ig, kappas=[]):
         except:
             qgndj = np.empty(0)
         '''
+        #breakpoint()
         # sorted positions of positive and junk images (0 based)
-        pos  = np.arange(ranks.shape[0])[np.in1d(ranks[:,i], qgnd)]
+        pos  = np.arange(ranks.shape[0])[np.in1d(ranks.iloc[:,i], qgnd)]
+        #breakpoint()
         #junk = np.arange(ranks.shape[0])[np.in1d(ranks[:,i], qgndj)]
         '''
         k = 0;

@@ -5,6 +5,7 @@ import warnings
 from pathlib import Path
 import numpy as np
 import torch
+import pandas as pd
 from torchvision import transforms
 
 from cirtorch.datasets.genericdataset import ImagesFromList
@@ -56,7 +57,7 @@ def eval_global(net, inference, globals, *, datasets):
 
     scores = {}
     for dataset in datasets:
-        images, qimages, bbxs, qg,ig = data_helpers.load_dataset(dataset, data_root=globals['root_path'])
+        images, qimages, bbxs, ig,qg,ilabel = data_helpers.load_dataset(dataset, data_root=globals['root_path'])
         logger.info(f"Evaluating {dataset}")
 
         with logging.LoggingStopwatch("extracting database images", logger.info, logger.debug):
@@ -71,8 +72,16 @@ def eval_global(net, inference, globals, *, datasets):
         vecs, qvecs = vecs.numpy(), qvecs.numpy()
         
         ranks = np.argsort(-np.dot(vecs, qvecs.T), axis=0)
-        breakpoint()
-        scores[dataset] = score_helpers.compute_map_and_log(dataset, ranks, qg,ig, logger=logger)
+
+        label_df=pd.DataFrame()
+        ranks=ranks[0:10,:]
+        #for i in range(len(ranks[0])):
+        for i in range(6):
+            for j in range(len(ranks)):
+                k=ranks[j,i]
+                label_df.loc[j,i]=ilabel[k]
+        #breakpoint()
+        scores[dataset] = score_helpers.compute_map_and_log(dataset, label_df, qg,ig, logger=logger)
 
     logger.info(f"Finished global evaluation in {int(time.time()-time0) // 60} min")
     return scores

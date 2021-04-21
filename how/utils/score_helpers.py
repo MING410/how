@@ -53,8 +53,8 @@ def compute_map_and_log(dataset, ranks, qg,ig, kappas=(1, 5, 10), logger=None):
         return scores
     '''
     # old evaluation protocol
-    map_score, ap_scores, prk, pr_scores = compute_map(ranks, qg,ig, kappas=kappas)
+    map_score, ap_scores = compute_map(ranks, qg,ig, kappas=kappas)
     if logger:
         fmap = lambda x: np.around(x*100, decimals=2)
-        logger.info(f"Evaluated {dataset}: mAP {fmap(map_score)}, mP@k {fmap(prk)}")
-    return {"map": map_score, "mp@k": prk, "ap": ap_scores, "p@k": pr_scores}
+        logger.info(f"Evaluated {dataset}: mAP {fmap(map_score)}")
+    return {"map": map_score,  "ap": ap_scores}
