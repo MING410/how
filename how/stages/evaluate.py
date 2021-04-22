@@ -106,7 +106,7 @@ def eval_asmk(net, inference, globals, *, datasets, codebook_training, asmk):
 
     scores = {}
     for dataset in datasets:
-        images, qimages, bbxs, qg,ig,ilabel= data_helpers.load_dataset(dataset, data_root=globals['root_path'])
+        images, qimages, bbxs, ig,qg,ilabel= data_helpers.load_dataset(dataset, data_root=globals['root_path'])
         data_opts = {"imsize": inference['image_size'], "transform": globals['transform']}
         infer_opts = {"scales": inference['scales'], "features_num": inference['features_num']}
         logger.info(f"Evaluating {dataset}")

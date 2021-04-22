@@ -53,11 +53,12 @@ def compute_map_and_log(dataset, ranks, qg,ig, kappas=(1, 5, 10), logger=None):
         return scores
     '''
     # old evaluation protocol
-    breakpoint()
-    map_score, ap_scores = compute_map(ranks, qg,ig, kappas=kappas)
     #breakpoint()
+    map_score, ap_scores,num_pos,num_array = compute_map(ranks, qg,ig, kappas=kappas)
     if logger:
         fmap = lambda x: np.around(x*100, decimals=2)
         logger.info(f"Evaluated {dataset}: mAP {fmap(map_score)}")
         logger.info(f"Evaluated {dataset}: aps {fmap(ap_scores)}")
-    return {"map": map_score,  "aps": ap_scores}
+        logger.info(f"Evaluated {dataset}: num_pos {fmap(num_pos)}")
+        logger.info(f"Evaluated {dataset}: num_array {fmap(num_array)}")
+    return {"map": map_score,  "aps": ap_scores, "num_pos": num_pos, "num_array": num_array}
